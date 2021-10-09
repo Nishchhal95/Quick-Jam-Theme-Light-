@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Input")] [SerializeField]
+    private PlayerInput playerInput;
+    
     [Header("Ground Check")]
     [SerializeField] private float groundedOffset = .14f;
     [SerializeField] private float groundedRadius = .28f;
@@ -16,24 +19,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -15f;
     [SerializeField] private float jumpHeight = 5f;
     private float _verticalVelocity;
-    private bool _jump;
 
     [Header("Movement")]
-    [SerializeField] private bool rawInput;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
     private float _playerSpeed = 10f;
-    private Vector3 _inputVector;
     private Vector3 _movement;
-    private bool _isSprinting;
     
     [Header("Camera Motion")]
-    [SerializeField] private bool rawMouseLookInput;
     [SerializeField] private float mouseXSensitivity = 5f;
     [SerializeField] private float mouseYSensitivity = 5f;
     [SerializeField] private bool showCursor;
     [SerializeField] private CursorLockMode currentCursorLockMode;
-    [SerializeField] private Vector2 inputMouseLookVector;
     [SerializeField] private Vector2 mouseLookVector;
 
     [SerializeField] private CharacterController characterController;
@@ -46,28 +43,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
         GroundCheck();
         Jump();
         ApplyGravity();
         Move();
         CameraMove();
-    }
-
-    private void HandleInput()
-    {
-        _inputVector.x = rawInput ? Input.GetAxisRaw("Horizontal") : Input.GetAxis("Horizontal");
-        _inputVector.z = rawInput ? Input.GetAxisRaw("Vertical") : Input.GetAxis("Vertical");
-
-        inputMouseLookVector.x = rawMouseLookInput ? Input.GetAxisRaw("Mouse X") : Input.GetAxis("Mouse X");
-        inputMouseLookVector.y = rawMouseLookInput ? Input.GetAxisRaw("Mouse Y") : Input.GetAxis("Mouse Y");
-
-        _isSprinting = Input.GetKey(KeyCode.LeftShift);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _jump = true;
-        }
     }
 
     private void GroundCheck()
@@ -79,9 +59,9 @@ public class PlayerController : MonoBehaviour
     
     private void Jump()
     {
-        if (_jump && _grounded)
+        if (playerInput.GetJump() && _grounded)
         {
-            _jump = false;
+            playerInput.SetJump(false);
             // the square root of H * -2 * G = how much velocity needed to reach desired height
             _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -98,10 +78,10 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        _playerSpeed = _isSprinting ? sprintSpeed : walkSpeed;
+        _playerSpeed = playerInput.GetSprinting() ? sprintSpeed : walkSpeed;
         
-        _movement = (cameraTransform.right * _inputVector.x * _playerSpeed) +
-                    (cameraTransform.forward * _inputVector.z * _playerSpeed);
+        _movement = (cameraTransform.right * playerInput.GetInputVector().x * _playerSpeed) +
+                    (cameraTransform.forward * playerInput.GetInputVector().z * _playerSpeed);
         _movement.y = _verticalVelocity;
         characterController.Move(_movement * Time.deltaTime);
         
@@ -127,8 +107,8 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = showCursor;
         Cursor.lockState = currentCursorLockMode;
 
-        mouseLookVector = new Vector2(inputMouseLookVector.x * mouseXSensitivity, 
-            inputMouseLookVector.y * mouseYSensitivity);
+        mouseLookVector = new Vector2(playerInput.GetInputMouseLookVector().x * mouseXSensitivity, 
+            playerInput.GetInputMouseLookVector().y * mouseYSensitivity);
 
         
         Vector3 newEulerAngles = cameraTransform.localRotation.eulerAngles + 
