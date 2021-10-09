@@ -11,8 +11,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private bool rawMouseLookInput;
     [SerializeField] private Vector2 inputMouseLookVector;
 
-    [SerializeField] private bool isSprinting = false, jump = false;
-    
+    [SerializeField] private bool isSprinting = false, jump = false, didAttack = false;
+
     private void Update()
     {
         HandleInput();
@@ -29,6 +29,8 @@ public class PlayerInput : MonoBehaviour
         isSprinting = Input.GetKey(KeyCode.LeftShift);
 
         jump = Input.GetKeyDown(KeyCode.Space);
+
+        didAttack = Input.GetMouseButtonDown(0) || Input.GetMouseButton(0);
     }
 
     public Vector3 GetInputVector()
@@ -54,5 +56,10 @@ public class PlayerInput : MonoBehaviour
     public void SetJump(bool jumpState)
     {
         jump = jumpState;
+    }
+
+    public bool GetDidAttack()
+    {
+        return didAttack;
     }
 }

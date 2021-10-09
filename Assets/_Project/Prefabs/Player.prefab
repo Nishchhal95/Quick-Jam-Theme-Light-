@@ -335,7 +335,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 1.143}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.4}
-  m_Children: []
+  m_Children:
+  - {fileID: 6649216732921948027}
   m_Father: {fileID: 76628622340379711}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -412,6 +413,7 @@ GameObject:
   - component: {fileID: 76628621691923855}
   - component: {fileID: 2424719895519890025}
   - component: {fileID: 76628621691923856}
+  - component: {fileID: 8476183381432771215}
   - component: {fileID: 76628621691923857}
   m_Layer: 0
   m_Name: Player
@@ -453,6 +455,7 @@ MonoBehaviour:
   inputMouseLookVector: {x: 0, y: 0}
   isSprinting: 0
   jump: 0
+  didAttack: 0
 --- !u!114 &76628621691923856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +485,27 @@ MonoBehaviour:
   mouseLookVector: {x: 0, y: 0}
   characterController: {fileID: 76628621691923857}
   cameraTransform: {fileID: 76628620448908140}
+--- !u!114 &8476183381432771215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76628621691923854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be9cc2a2949dfc409cade1cbc6dd8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 2424719895519890025}
+  MaxGapBetweenAttacks: 1
+  currentGapBetweenAttacks: 0
+  spellShootTransform: {fileID: 6649216732921948027}
+  spellPrefab: {fileID: 8771001351908241026, guid: 7f3173cdd8ded3c46b2fc5b045ef650c, type: 3}
+  cameraTransform: {fileID: 0}
+  hittableLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!143 &76628621691923857
 CharacterController:
   m_ObjectHideFlags: 0
@@ -628,3 +652,33 @@ Transform:
   m_Father: {fileID: 76628620448908140}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -26.47, y: 0, z: 0}
+--- !u!1 &4747078174605845423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6649216732921948027}
+  m_Layer: 0
+  m_Name: SpellShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6649216732921948027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747078174605845423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 76628621481902695}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
