@@ -31,18 +31,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool rawMouseLookInput;
     [SerializeField] private float mouseXSensitivity = 5f;
     [SerializeField] private float mouseYSensitivity = 5f;
-    [SerializeField] private bool lockCursor;
+    [SerializeField] private bool showCursor;
     [SerializeField] private CursorLockMode currentCursorLockMode;
     [SerializeField] private Vector2 inputMouseLookVector;
     [SerializeField] private Vector2 mouseLookVector;
 
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private float _rotationVelocity = 5f;
-    [SerializeField] [Range(0.0f, 0.3f)]
-    private float RotationSmoothTime = 0.12f;
-
-    [SerializeField] private Animator playerAnimator;
 
     private void Awake()
     {
@@ -56,11 +51,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         ApplyGravity();
         Move();
-        HandleAnimations();
-
-        Cursor.visible = lockCursor;
-        Cursor.lockState = currentCursorLockMode;
-        //CameraMove();
+        CameraMove();
     }
 
     private void HandleInput()
@@ -114,33 +105,26 @@ public class PlayerController : MonoBehaviour
         _movement.y = _verticalVelocity;
         characterController.Move(_movement * Time.deltaTime);
         
-        RotatePlayer();
+        //RotatePlayer();
     }
     
-    private void RotatePlayer()
-    {
-        Vector3 normalizedInputDirection = new Vector3(_inputVector.x, 0.0f, _inputVector.z).normalized;
-        // if there is a move input rotate player when the player is moving
-        if (_inputVector != Vector3.zero)
-        {
-            float _targetRotation = Mathf.Atan2(normalizedInputDirection.x, normalizedInputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
-
-            // rotate to face input direction relative to camera position
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-        }
-    }
-
-    // TODO: CLEAN ME
-    private void HandleAnimations()
-    {
-        playerAnimator.SetFloat("Speed", Mathf.Max(_inputVector.x, _inputVector.z));
-        playerAnimator.SetBool("IsRunning", _isSprinting);
-    }
+    // private void RotatePlayer()
+    // {
+    //     Vector3 normalizedInputDirection = new Vector3(_inputVector.x, 0.0f, _inputVector.z).normalized;
+    //     // if there is a move input rotate player when the player is moving
+    //     if (_inputVector != Vector3.zero)
+    //     {
+    //         float _targetRotation = Mathf.Atan2(normalizedInputDirection.x, normalizedInputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+    //         float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
+    //
+    //         // rotate to face input direction relative to camera position
+    //         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+    //     }
+    // }
 
     private void CameraMove()
     {
-        Cursor.visible = lockCursor;
+        Cursor.visible = showCursor;
         Cursor.lockState = currentCursorLockMode;
 
         mouseLookVector = new Vector2(inputMouseLookVector.x * mouseXSensitivity, 
