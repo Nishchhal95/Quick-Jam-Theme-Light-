@@ -10,6 +10,7 @@ public class Spirit : MonoBehaviour
     private Rigidbody rb;
     private Vector3 movement;
     public float speed = 10f;
+    public int health = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -32,4 +33,18 @@ public class Spirit : MonoBehaviour
     {
         rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Fireball")
+        {
+            health -= 2;
+            if(health <= 0)
+            {
+                Debug.Log("capturable");
+            }
+        }
+    }
+
+    
 }
