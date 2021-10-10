@@ -14,6 +14,10 @@ public class PlayerAttackController : MonoBehaviour
 
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private LayerMask hittableLayerMask;
+    
+
+    public AudioClip[] spellCastSFX;
+    public AudioSource as_;
 
     private void Start()
     {
@@ -41,6 +45,7 @@ public class PlayerAttackController : MonoBehaviour
     private void PerformAttack()
     {
         Debug.Log("Pew!");
+        as_.PlayOneShot(spellCastSFX[UnityEngine.Random.Range(0, spellCastSFX.Length)]);
         Vector3 spellDirection = cameraTransform.forward;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward,
             out RaycastHit hitInfo, 1000f, hittableLayerMask))

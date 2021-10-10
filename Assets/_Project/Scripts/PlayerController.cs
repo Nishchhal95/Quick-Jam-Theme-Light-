@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform cameraTransform;
 
+    public AudioSource as_;
+    public AudioClip[] footsteps;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -83,7 +86,9 @@ public class PlayerController : MonoBehaviour
         _movement = (cameraTransform.right * playerInput.GetInputVector().x * _playerSpeed) +
                     (cameraTransform.forward * playerInput.GetInputVector().z * _playerSpeed);
         _movement.y = _verticalVelocity;
-        characterController.Move(_movement * Time.deltaTime);
+       
+        //characterController.Move(_movement * Time.deltaTime);
+        //as_.PlayOneShot(footsteps[UnityEngine.Random.Range(0, footsteps.Length)]);
         
         //RotatePlayer();
     }
