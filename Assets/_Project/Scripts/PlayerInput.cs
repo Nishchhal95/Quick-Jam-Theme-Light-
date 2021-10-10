@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private Vector2 inputMouseLookVector;
 
     [SerializeField] private bool isSprinting = false, jump = false, didAttack = false;
+
+    private void Start()
+    {
+        SceneManager.LoadScene("Level", LoadSceneMode.Additive);
+    }
 
     private void Update()
     {
