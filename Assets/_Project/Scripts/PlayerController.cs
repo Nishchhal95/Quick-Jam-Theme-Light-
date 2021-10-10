@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         characterController.Move(_movement * Time.deltaTime);
         if (_movement.x != 0 || _movement.z != 0)
         {
-            if (!as_.isPlaying)
+            if (!as_.isPlaying && _grounded)
             {
                 as_.clip = footsteps[UnityEngine.Random.Range(0, footsteps.Length)];
                 as_.pitch = playerInput.GetSprinting() ? 1.5f : 1f;
