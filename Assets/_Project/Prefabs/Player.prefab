@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 3143427299753884813}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -652,7 +652,7 @@ MonoBehaviour:
   MaxGapBetweenAttacks: 1
   currentGapBetweenAttacks: 0
   spellShootTransform: {fileID: 6649216732921948027}
-  spellPrefab: {fileID: 8771001351908241026, guid: 7f3173cdd8ded3c46b2fc5b045ef650c, type: 3}
+  spellPrefab: {fileID: 5129311042770720307, guid: 7f3173cdd8ded3c46b2fc5b045ef650c, type: 3}
   cameraTransform: {fileID: 0}
   hittableLayerMask:
     serializedVersion: 2

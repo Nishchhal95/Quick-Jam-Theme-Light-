@@ -10,7 +10,7 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] private float currentGapBetweenAttacks = 0f;
 
     [SerializeField] private Transform spellShootTransform;
-    [SerializeField] private GameObject spellPrefab;
+    [SerializeField] private Spell spellPrefab;
 
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private LayerMask hittableLayerMask;
@@ -52,9 +52,10 @@ public class PlayerAttackController : MonoBehaviour
         {
             spellDirection = (hitInfo.point - spellShootTransform.position).normalized;
         }
-        GameObject spell = Instantiate(spellPrefab, spellShootTransform.position, Quaternion.identity);
-        spell.GetComponent<Rigidbody>().velocity = spellDirection * 15f;
-        Destroy(spell, 2f);
+        Spell spell = Instantiate(spellPrefab, spellShootTransform.position, Quaternion.identity);
+        spell.SetVelocity(spellDirection * 15f);
+        //spell.GetComponent<Rigidbody>().velocity = spellDirection * 15f;
+        Destroy(spell.gameObject, 2f);
     }
 
     private bool CanPerformAttack()

@@ -4989,6 +4989,7 @@ GameObject:
   - component: {fileID: 8771001351908241027}
   - component: {fileID: 8314676316811235118}
   - component: {fileID: 1712514828842945474}
+  - component: {fileID: 5129311042770720307}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Fireball
@@ -5025,7 +5026,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1712514828842945474
 Rigidbody:
@@ -5043,6 +5044,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5129311042770720307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771001351908241026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cd6384a567e994690365dfc437b327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 1712514828842945474}
+  spellBreakEffect: {fileID: 4329415184847742858, guid: dcec9e2383d8a954eb7fcf1415000db4, type: 3}
 --- !u!1 &8771001352581251444
 GameObject:
   m_ObjectHideFlags: 0
