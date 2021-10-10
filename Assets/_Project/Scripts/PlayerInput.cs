@@ -14,11 +14,6 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private bool isSprinting = false, jump = false, didAttack = false;
 
-    private void Start()
-    {
-        SceneManager.LoadScene("Level", LoadSceneMode.Additive);
-    }
-
     private void Update()
     {
         HandleInput();

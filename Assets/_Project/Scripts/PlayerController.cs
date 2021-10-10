@@ -87,8 +87,14 @@ public class PlayerController : MonoBehaviour
                     (cameraTransform.forward * playerInput.GetInputVector().z * _playerSpeed);
         _movement.y = _verticalVelocity;
        
-        //characterController.Move(_movement * Time.deltaTime);
-        //as_.PlayOneShot(footsteps[UnityEngine.Random.Range(0, footsteps.Length)]);
+        characterController.Move(_movement * Time.deltaTime);
+        if (_movement.x != 0 || _movement.z != 0)
+        {
+            if (!as_.isPlaying)
+            {
+                as_.PlayOneShot(footsteps[UnityEngine.Random.Range(0, footsteps.Length)]);
+            }
+        }
         
         //RotatePlayer();
     }
