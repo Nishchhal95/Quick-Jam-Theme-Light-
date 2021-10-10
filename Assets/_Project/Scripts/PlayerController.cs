@@ -92,7 +92,17 @@ public class PlayerController : MonoBehaviour
         {
             if (!as_.isPlaying)
             {
-                as_.PlayOneShot(footsteps[UnityEngine.Random.Range(0, footsteps.Length)]);
+                as_.clip = footsteps[UnityEngine.Random.Range(0, footsteps.Length)];
+                as_.pitch = playerInput.GetSprinting() ? 1.5f : 1f;
+                as_.Play();
+            }
+        }
+
+        else
+        {
+            if (as_.isPlaying)
+            {
+                as_.Stop();
             }
         }
         
