@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource as_;
     public AudioClip[] footsteps;
+    public AudioClip jump;
+    public AudioClip jumpLand;
 
     private void Awake()
     {
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void GroundCheck()
     {
+        
         Vector3 spherePosition = new Vector3(transform.position.x, 
             transform.position.y - groundedOffset, transform.position.z);
         _grounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayer, QueryTriggerInteraction.Ignore);
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour
         if (playerInput.GetJump() && _grounded)
         {
             playerInput.SetJump(false);
+            as_.PlayOneShot(jump);
             // the square root of H * -2 * G = how much velocity needed to reach desired height
             _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
