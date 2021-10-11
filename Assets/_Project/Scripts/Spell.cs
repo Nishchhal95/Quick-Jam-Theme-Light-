@@ -19,6 +19,11 @@ public class Spell : MonoBehaviour
         {
             return;
         }
+
+        if (other.gameObject.TryGetComponent<SpiritBehaviour>(out SpiritBehaviour spiritBehaviour))
+        {
+            spiritBehaviour.TakeDamage(20);
+        }
         GameObject spellBreak = Instantiate(spellBreakEffect, transform.position, Quaternion.identity);
         Destroy(spellBreak, 1f);
         Destroy(gameObject);
