@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class SpiritBehaviour : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class SpiritBehaviour : MonoBehaviour
     [SerializeField] private float shootRange = 10f;
 
     public static Action onSpiritDie;
+
+    [SerializeField] private AudioClip[] clips;
+    [SerializeField] private AudioSource _as;
 
     private void Start()
     {
@@ -107,6 +111,10 @@ public class SpiritBehaviour : MonoBehaviour
                 targetShrineLight.range = 120;
                 targetShrineLight.intensity = 2;
                 gameObject.SetActive(false);
+                int clipIndex = playerHealth.spiritsCollected;
+                clipIndex = Mathf.Clamp(clipIndex, 0, clips.Length);
+                _as.clip = clips[clipIndex];
+                _as.Play();
                 onSpiritDie?.Invoke();
             });
         });
